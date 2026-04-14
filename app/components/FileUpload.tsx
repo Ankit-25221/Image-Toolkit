@@ -1,15 +1,12 @@
 "use client"; // This component must be a client component
 
 import {
-  ImageKitAbortError,
-  ImageKitInvalidRequestError,
-  ImageKitServerError,
-  ImageKitUploadNetworkError,
   upload,
 } from "@imagekit/next";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 interface FileUploadProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSuccess: (res: any) => void;
   onProgress?: (progress: number) => void;
   fileType?: "image" | "video";
@@ -75,6 +72,7 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
         accept={fileType === "video" ? "video/*" : "image/*"}
         onChange={handleFileChange}
       />
+      {error && <div className="text-red-500">{error}</div>}
       {uploading && <span>Loading....</span>}
     </>
   );
